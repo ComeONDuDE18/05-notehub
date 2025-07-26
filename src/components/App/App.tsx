@@ -11,6 +11,7 @@ import Pagination from "../Pagination/Pagination";
 import Modal from "../Modal/Modal";
 import Loader from "../Loader/Loader";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import type { FetchNotesResponse } from "../../services/noteService";
 
 
 
@@ -20,16 +21,16 @@ export default function App() {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [debouncedSearch] = useDebounce(search, 300);
+  const [debouncedSearchTerm] = useDebounce(search, 300);
 
   useEffect(() => {
     setPage(1);
-  }, [debouncedSearch]);
+  }, [debouncedSearchTerm]);
 
-  const { data, isLoading, isError, isSuccess } = useQuery({
-    queryKey: ["notes", page, debouncedSearch],
+  const { data, isLoading, isError, isSuccess } = useQuery<FetchNotesResponse>({
+    queryKey: ["notes", page, debouncedSearchTerm],
     queryFn: () =>
-      fetchNotes(page, 12, debouncedSearch), 
+      fetchNotes(page, 12, debouncedSearchTerm), 
     placeholderData: keepPreviousData,
   });
 
