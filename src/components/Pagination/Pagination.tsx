@@ -15,6 +15,9 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
             onPageChange={(e) => onPageChange(e.selected + 1)}
             containerClassName={css.pagination}
             activeClassName={css.active}
+            previousLabel={"←"}
+            nextLabel={"→"}
+            
         />
     );
 };

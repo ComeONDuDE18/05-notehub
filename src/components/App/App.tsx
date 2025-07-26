@@ -27,12 +27,12 @@ export default function App() {
     setPage(1);
   }, [debouncedSearchTerm]);
 
-  const { data, isLoading, isError, isSuccess } = useQuery<FetchNotesResponse>({
-    queryKey: ["notes", page, debouncedSearchTerm],
-    queryFn: () =>
-      fetchNotes(page, 12, debouncedSearchTerm), 
-    placeholderData: keepPreviousData,
-  });
+const { data, isLoading, isError, isSuccess } = useQuery<FetchNotesResponse>({
+  queryKey: ["notes", page, debouncedSearchTerm],
+  queryFn: () => fetchNotes(debouncedSearchTerm || "", page),
+  placeholderData: keepPreviousData,
+});
+
 
   return (
     <div className={css.app}>
